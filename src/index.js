@@ -119,6 +119,7 @@
             console.log(projectDialogInput.value)
             console.log(todoList.getProject())
             DOMdisplay.projectDisplay()
+            DOMdisplay.updateProjectDropdown()
             projectDialog.close()
         })
         
@@ -170,6 +171,24 @@
 
         const todoContainer = document.querySelector('#todo-container')
         const projectHeader = document.querySelector('#header')
+        const projectDropdown = document.querySelector('#select-project')
+
+
+        function updateProjectDropdown(){
+            projectDropdown.innerHTML=''
+
+            const defaultProjectItem = document.createElement('option')
+            defaultProjectItem.textContent='Default'
+            projectDropdown.appendChild(defaultProjectItem)
+
+            const projects = todoList.getProject()
+            projects.forEach((project)=>{
+                const projectItem = document.createElement('option')
+                projectItem.textContent= project
+                projectDropdown.appendChild(projectItem)
+            })
+            
+        }
 
         function makeTodoCard(todo,index){
             const todoCard = document.createElement('div')
@@ -244,7 +263,7 @@
                 projectList.appendChild(projectItem)
             })
         }
-        return {loadTodo,projectDisplay}
+        return {loadTodo,projectDisplay,updateProjectDropdown}
     })()
 
     // console.log(todoList.getAllProjects())
