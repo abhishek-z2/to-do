@@ -255,11 +255,20 @@
 
         function projectDisplay(){
             projectList.innerHTML=''
+            const defaultProjectItem = document.createElement('li')
+            defaultProjectItem.textContent='All'
+            defaultProjectItem.addEventListener('click',()=>{
+                loadTodo()
+            })
+            projectList.appendChild(defaultProjectItem)
             const projects = Array.from(todoList.getProject())
             console.log(projects)
             projects.forEach((project)=>{
                 const projectItem = document.createElement('li')
                 projectItem.textContent=project
+                projectItem.addEventListener('click',()=>{
+                    loadTodo(project)
+                })
                 projectList.appendChild(projectItem)
             })
         }
