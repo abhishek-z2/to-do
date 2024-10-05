@@ -23,13 +23,33 @@
 
     const todoList = (()=>{
 
+        let todos =[];
         const projects = new Set()
 
+        function saveToLocalStorage(){
+            localStorage.setItem('todos',JSON.stringify(todos))
+            localStorage.setItem('projects',JSON.stringify([...projects]))
+
+        }
+
+        function loadFromLocalStorage(){
+            const storedTodos = localStorage.getItem('todos')
+            if(storedTodos){
+                todos = JSON.parse(storedTodos)
+            }
+            const storedProjects = localStorage.getItem('projects')
+            if(storedProjects){
+                const loadedProject = JSON.parse(storedProjects)
+                loadedProject.forEach((project)=>{
+                    projects.add(project)
+                })
+            }
+        }
+        
         function getProject(){
             return projects
         }
 
-        const todos =[];
         function addProject(project){
             if(project){
                 projects.add(project)
@@ -46,6 +66,7 @@
 
         function addToArray(todo){
             todos.push(todo)
+            saveToLocalStorage()
         }
         
         function addTodo(title,description,dueDate,priority,notes,project){
@@ -61,6 +82,7 @@
 
         function setComplete(todo){
             todo.isComplete = !todo.isComplete
+            saveToLocalStorage()
         }
 
         function getStatus(todo){
@@ -71,6 +93,7 @@
             return Array.from(projects)
         }
 
+        loadFromLocalStorage()
 
         return {todos,newTodo,addToArray,filterByProject,addTodo,setComplete,getStatus,getAllProjects,addProject,getProject}
     })()
@@ -122,6 +145,10 @@
             DOMdisplay.updateProjectDropdown()
             projectDialog.close()
         })
+
+        DOMdisplay.projectDisplay()
+        DOMdisplay.updateProjectDropdown()
+        DOMdisplay.loadTodo()
         
         // const completeButton = document.querySelector('.todo-complete')
     
@@ -170,7 +197,7 @@
     const DOMdisplay =(()=>{
 
         const todoContainer = document.querySelector('#todo-container')
-        const projectHeader = document.querySelector('#header')
+        const projectHeader = document.querySelector('#project-header')
         const projectDropdown = document.querySelector('#select-project')
 
 
@@ -216,14 +243,17 @@
             const completeButton = document.createElement('button')
             completeButton.classList.add('todo-complete')
             if (todo.isComplete) {
+                todoCard.classList.add('complete')
                 completeButton.textContent = 'completed';
             } else {
                 completeButton.textContent = 'complete';
+                todoCard.classList.add('incomplete')
             }
             completeButton.dataset.index = index
 
             completeButton.addEventListener('click',()=>{
                 todoList.setComplete(todo)
+                console.log(todo)
                 loadTodo()
             })
             todoCard.appendChild(completeButton)
@@ -252,12 +282,15 @@
 
         }
         const projectList = document.querySelector('.project-list')
+        
+
 
         function projectDisplay(){
             projectList.innerHTML=''
             const defaultProjectItem = document.createElement('li')
             defaultProjectItem.textContent='All'
             defaultProjectItem.addEventListener('click',()=>{
+                projectHeader.textContent='All'
                 loadTodo()
             })
             projectList.appendChild(defaultProjectItem)
@@ -267,6 +300,7 @@
                 const projectItem = document.createElement('li')
                 projectItem.textContent=project
                 projectItem.addEventListener('click',()=>{
+                    projectHeader.textContent=project
                     loadTodo(project)
                 })
                 projectList.appendChild(projectItem)
@@ -275,6 +309,8 @@
         return {loadTodo,projectDisplay,updateProjectDropdown}
     })()
 
+
+ 
     // console.log(todoList.getAllProjects())
 
 
