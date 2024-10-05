@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to-duum!</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="add-list">
+                <div class="add-project">
+                     new project
+                </div>
+                <div class="add-todo">
+                     new todo
+                </div>
+            </div>
+            <div class="project-space">
+                <ul class="project-list">
+                    <!-- <li>sample project one</li>
+                    <li>samle project two</li> -->
+                </ul>
+            </div>
+        </div>
+        <div id="container">
+            <div id="project-header">
+                Project Name
+            </div>
+            <div id="todo-container">
+                <!-- <div class="todo-card">
+                    <div class="title">Title</div>
+                    <div class="description"></div>
+                    <div class="due-date">12/12/21</div>
+                    <div class="notes">
+                        this is a note
+                    </div>
+
+                    <div class="priority">urgent</div>
+                    <button type="button" class="todo-complete">complete</button>
+                    
+                </div> -->
+
+
+            </div>
+        </div>
+    </div>
+    <dialog id="todo-dialog">
+        <form action="">
+            <div class="item">
+                <label for="title">
+                    title
+                </label>
+                <input id="title" type="text" required>
+            </div>
+            <div class="item">
+                <label for="description">
+                    description
+                </label>
+                <input type="text" id="description">
+            </div>
+            <div class="item">
+                <label for="date">
+                    due date
+                </label>
+                <input id="date" type="date" name="date" required>
+            </div>
+            <div class="item">
+                <div>
+                    priority
+                </div>
+                <div class="priority-value">high</div><input type="radio" name ="priority" value="high">
+                <div class="priority-value">mid</div><input type="radio" name ="priority" value="mid">
+                <div class="priority-value">low</div><input type="radio" name ="priority" value="low">
+            </div>
+            <div class="item">
+                <label for="notes">notes</label>
+                <textarea name="notes" id="notes" placeholder="anything to remember?"></textarea>
+            </div>
+            <div class="item">
+                <label for="select-project">select the project</label>
+                <select name="project-selection" id="select-project" size="1">
+                    <option name = "project" value="first">first</option>
+                    <option name = "project" value="second">second</option>
+                    <option name = "project" value="third">third</option>
+                </select>
+            </div>
+            <button type="submit" id="todo-save" >save</button>
+        </form>
+    </dialog>
+    <dialog id="project-dialog">
+        <div class="project-div">
+            <label for="project">project name:</label>
+            <input type="text" id="project">
+        </div>
+        <button id="project-submit-button">
+            submit
+        </button>
+    </dialog>
+</body>
+</html>
