@@ -132,7 +132,9 @@
         const projectAddButton = document.querySelector('.add-project')
         const projectSubmitButton = document.querySelector('#project-submit-button')
         const projectDialogInput = document.querySelector('#project')
+        const projectHeader = document.querySelector('#project-header')
 
+        projectHeader.textContent='all'
         projectAddButton.addEventListener('click',()=>{
             projectDialog.showModal()
         })
@@ -146,19 +148,18 @@
             projectDialog.close()
         })
 
-        DOMdisplay.projectDisplay()
         DOMdisplay.updateProjectDropdown()
         DOMdisplay.loadTodo()
         
         // const completeButton = document.querySelector('.todo-complete')
-    
+        
         const addNewTodo = document.querySelector('.add-todo');
         addNewTodo.addEventListener('click', () => {
             todoDialog.showModal();
         });
-
+        
         // completeButton.addEventListener('click',)
-    
+        
         const todoSaveButton = document.querySelector('#todo-save');
         todoSaveButton.addEventListener('click', (e) => {
             e.preventDefault()
@@ -167,14 +168,14 @@
             const date = new Date(dateInput.value);
             const notes = notesInput.value;
             const project = projectInput ? projectInput.value : "this";
-    
+            
             const priorityInput = document.querySelector('input[name="priority"]:checked');
             const priority = priorityInput ? priorityInput.value : "mid";
-    
+            
             todoList.addTodo(title, description, date, priority, notes, project);
             DOMdisplay.loadTodo()
-            DOMdisplay.projectDisplay()
-
+            // DOMdisplay.projectDisplay()
+            
             // Reset input fields
             titleInput.value = '';
             descriptionInput.value = '';
@@ -182,14 +183,15 @@
             notesInput.value = '';
             projectInput.selectedIndex = 0; // Reset to first option
             
-                console.log(todoList.todos)
-                // console.log(typeof todoList.todos[0].title)
-
+            console.log(todoList.todos)
+            // console.log(typeof todoList.todos[0].title)
+            
             // Close the dialog
             todoDialog.close();
         });
-
-
+        
+        DOMdisplay.projectDisplay()
+        
 
     });
 
@@ -287,10 +289,11 @@
 
         function projectDisplay(){
             projectList.innerHTML=''
+            // projectHeader.textContent=''
             const defaultProjectItem = document.createElement('li')
-            defaultProjectItem.textContent='All'
+            defaultProjectItem.textContent='all'
             defaultProjectItem.addEventListener('click',()=>{
-                projectHeader.textContent='All'
+                projectHeader.textContent='all'
                 loadTodo()
             })
             projectList.appendChild(defaultProjectItem)
