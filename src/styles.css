@@ -316,3 +316,7 @@ dialog button:hover{
 .todo-card.complete{
     display: none;
 }
+
+dialog::backdrop{
+    background-color: rgb(34, 34, 34);
+}
